@@ -175,7 +175,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const commandSpan = document.querySelector('.command-text');
 
     if (terminalContainer && terminalContent && commandSpan) {
-        const commandText = "git clone https://github.com/AsmrProg-YT/Personal-Portfolios.git";
+        const commandText = "git clone https://github.com/aiymnn/portfolio.git";
 
         let i = 0;
         const typeCommand = () => {
