@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const myResume = document.getElementById('myResume');
     myResume.addEventListener('click', function () {
         const link = document.createElement('a');
-        link.href = '../assets/CV_Resume_Muhammad Aiman Izzat Bin Azizan.pdf';
+        link.href = './assets/CV_Resume_Muhammad Aiman Izzat Bin Azizan.pdf';
         link.download = 'CV_Resume_Muhammad Aiman Izzat Bin Azizan.pdf';
         document.body.appendChild(link);
         link.click();
