@@ -68,6 +68,16 @@ document.addEventListener('DOMContentLoaded', function () {
         document.body.removeChild(link);
     });
 
+    const myGraduate = document.getElementById('myGraduate');
+    myGraduate.addEventListener('click', function () {
+        const link = document.createElement('a');
+        link.href = './assets/Letter-of-Completion_Muhammad Aiman Izzat Bin Azizan.pdf';
+        link.download = 'Letter-of-Completion_Muhammad Aiman Izzat Bin Azizan.pdf';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    });
+
 
     // Smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -91,35 +101,74 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     //Form submission hadnling
-    const contactForm = document.getElementById('contactForm');
-    if (contactForm) {
-        contactForm.addEventListener('submit', function (e) {
-            e.preventDefault();
+    // const contactForm = document.getElementById('contactForm');
+    // if (contactForm) {
+    //     contactForm.addEventListener('submit', function (e) {
+    //         e.preventDefault();
             
-            //Get form value
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const message = document.getElementById('message').value;
+    //         //Get form value
+    //         const name = document.getElementById('name').value;
+    //         const email = document.getElementById('email').value;
+    //         const message = document.getElementById('message').value;
 
-            // Here you would typically send data to a server
-            // For demo purpose, we'll just log it and show a success message.
+    //         // Here you would typically send data to a server
+    //         // For demo purpose, we'll just log it and show a success message.
 
-            console.log('Form submitted: ', { name, email, message });
+    //         console.log('Form submitted: ', { name, email, message });
 
-            //Show success message
-            const button = contactForm.querySelector('button[type="submit"]');
-            const originalText = button.textContent;
-            button.textContent = 'Message sent';
+    //         //Show success message
+    //         const button = contactForm.querySelector('button[type="submit"]');
+    //         const originalText = button.textContent;
+    //         button.textContent = 'Message sent';
 
-            // Reset form
-            contactForm.reset();
+    //         // Reset form
+    //         contactForm.reset();
 
-            setTimeout(() => {
-                button.textContent = originalText;
-                button.classList.remove('bg-green-500');
-            }, 3000);
-        });
+    //         setTimeout(() => {
+    //             button.textContent = originalText;
+    //             button.classList.remove('bg-green-500');
+    //         }, 3000);
+    //     });
+    // }
+
+    function sendEmail() {
+        const contactForm = document.getElementById('contactForm');
+        const button = contactForm.querySelector('button[type="submit"]');
+        const originalText = button.textContent;
+
+        const templateParams = {
+            name: document.getElementById('name').value,
+            email: document.getElementById('email').value,
+            message: document.getElementById('message').value,
+        };
+
+        emailjs
+            .send("service_vozcoz5", "template_ri5r7yo", templateParams)
+            .then(() => {
+                // Success feedback: Change button text
+                button.textContent = 'Message sent';
+                contactForm.reset();
+
+                // Optionally style the button (e.g. green background)
+                button.classList.add('bg-green-500');
+
+                // Revert button after 3 seconds
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.classList.remove('bg-green-500');
+                }, 3000);
+            })
+            .catch((error) => {
+                console.error("Error sending email:", error);
+                alert("Failed to send email. Please try again.");
+            });
     }
+
+    // Hook the form submission
+    document.getElementById('contactForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        sendEmail();
+    });
 
     // Add scroll event for header shadow and reveal animations
     const header = document.querySelector('header');
